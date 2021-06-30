@@ -46,6 +46,7 @@ module.exports = merge(common, {
       "process.env.URL": JSON.stringify(site.staging.url),
       "process.env.URL_API": JSON.stringify(site.staging.urlApi),
       "process.env.SESSION_COOKIE_NAME": JSON.stringify(site.staging.sessionCookieName),
+      "process.env.DROPTYPE_ID": JSON.stringify(site.staging.dropTypeId)
     })
 
   ]

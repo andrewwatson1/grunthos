@@ -4,10 +4,7 @@ import React from "react";
 // Mui
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Rating from "@material-ui/lab/Rating";
 
 // Mothership
 import AppContext from "./../../context/AppContext";
@@ -16,7 +13,7 @@ import AppContext from "./../../context/AppContext";
 import LoginDialog from "./../../widgets/loginDialog";
 
 // Custom layout
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   comingSoon: {
     display: "flex",
     justifyContent: "center",
@@ -34,29 +31,6 @@ const useStyles = makeStyles((theme) => ({
   content: {
     maxWidth: "768px",
     padding: "20px"
-  },
-  thumb: {
-    display: "inline",
-    "& img ": {
-      background: theme.palette.success.main,
-      display: "inline-block"
-    },
-    "& .worse": {
-      background: theme.palette.error.main,
-      transform: "rotate(180deg)",
-      marginRight: "20px"
-    }
-  },
-  offerBtn: {
-    fontSize: "125%"
-  },
-  focus: {
-    width: "100%",
-    height: "auto"
-  },
-  modal: {
-    background: theme.palette.background.paper,
-    padding: theme.spacing(2)
   }
 }));
 
@@ -86,33 +60,6 @@ export const Holding = () => {
           As plurdled gabbleblotchits,
           in midsummer morning On a lurgid bee...
         </Typography>
-
-        <Grid container>
-
-          <Grid item xs={8}>
-            <Button disabled color="primary" variant="outlined" className={classes.offerBtn}>Purchase: NFT</Button>
-          </Grid>
-
-          <Grid item xs={4}>
-            <Box textAlign="right">
-
-              <Grid container>
-
-                <Grid item style={{ flexGrow: 1, textAlign: "left" }}>
-                  <Typography variant="caption">Meh...</Typography>
-                </Grid>
-
-                <Grid item>
-                  <Typography variant="caption">Ouch!</Typography>
-                </Grid>
-              </Grid>
-
-              <Rating name="customized-10" defaultValue={2} max={10} />
-
-            </Box>
-          </Grid>
-
-        </Grid>
 
       </Box>
     </Box>

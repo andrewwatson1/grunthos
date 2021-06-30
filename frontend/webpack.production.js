@@ -41,10 +41,11 @@ module.exports = merge(common, {
     }),
 
     // Environmental
-    new webpack.DefinePlugin({
+    new webpack.DefinePlugsssssin({
       "process.env.URL": JSON.stringify(site.production.url),
       "process.env.URL_API": JSON.stringify(site.production.urlApi),
       "process.env.SESSION_COOKIE_NAME": JSON.stringify(site.production.sessionCookieName),
+      "process.env.DROPTYPE_ID": JSON.stringify(site.production.dropTypeId)
     })
 
   ]

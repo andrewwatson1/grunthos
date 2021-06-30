@@ -9,6 +9,8 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 // Load theme layer
 import ThemeWrapper from "./../theme/ThemeWrapper";
@@ -42,6 +44,7 @@ export const AppProvider = props => {
   // Local state
   const [loader, setLoader] = React.useState(false);
   const [dialog, setDialog] = React.useState(false);
+  const [sysMsg, setSysMsg] = React.useState(false);
 
   // Classes
   const classes = useStyles();
@@ -347,11 +350,14 @@ export const AppProvider = props => {
     // Util: load drops
     app.util.loadDrops = async () => {
 
+      // Id
+      const dropTypeId = process.env.DROPTYPE_ID;
+
       // Try
       try {
 
         // Get drops
-        const dropsRequest = await app.util.fetchApiData("/drops", { method: "GET" });
+        const dropsRequest = await app.util.fetchApiData(`/drops?droptypes_id=${dropTypeId}`, { method: "GET" });
 
         // Data
         const dropsData = await dropsRequest.json();
@@ -370,11 +376,17 @@ export const AppProvider = props => {
 
       } catch (error) {
 
-        // Need to wire into global messaging module
-        //console.log(error);
+        // Clean up
+        error.name = "";
+
+        // System feedback
+        app.util.sysMsg({
+          isOpen: true,
+          severity: "error",
+          msg: error.toString()
+        });
 
       }
-
 
     };
 
@@ -389,7 +401,7 @@ export const AppProvider = props => {
 
         // Custom headers
         headers: {
-          "Content-Type": "application/json; charset=UTF-8"
+          "Content-Type": "application/json"
         },
 
         // Method
@@ -399,6 +411,37 @@ export const AppProvider = props => {
 
       // Return native fetch
       return fetch(api_url + endpoint, Object.assign(defaultFetchArgs, fetchArgs));
+
+    };
+
+    // Util: system feedback
+    app.util.sysMsg = args => {
+
+      // If args is false
+      if (!args) {
+
+        // Update (clear msg)
+        setSysMsg(m => {
+
+          // If there is a close method attached to the current
+          if (m && m.onClose) { m.onClose(); }
+
+          // Update, keeping content for now so it's smooth
+          return {
+            isOpen: false,
+            severity: m.severity,
+            msg: m.msg || ""
+          };
+
+        });
+
+        // Bail
+        return;
+
+      }
+
+      // Update the state
+      setSysMsg(args);
 
     };
 
@@ -446,6 +489,13 @@ export const AppProvider = props => {
 
           </DialogContent>
         </Dialog>
+
+        {/* System Messages */}
+        <Snackbar open={sysMsg && sysMsg.isOpen} autoHideDuration={6000} onClose={sysMsg.close}>
+          <MuiAlert onClose={sysMsg.close} severity={sysMsg.severity}>
+            {sysMsg.msg}
+          </MuiAlert>
+        </Snackbar>
 
       </ThemeWrapper>
     </AppContext.Provider>

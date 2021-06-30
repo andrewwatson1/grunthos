@@ -55,7 +55,8 @@ module.exports = merge(common, {
     new webpack.DefinePlugin({
       "process.env.URL": JSON.stringify(site.dev.url),
       "process.env.URL_API": JSON.stringify(site.dev.urlApi),
-      "process.env.SESSION_COOKIE_NAME": JSON.stringify(site.dev.sessionCookieName)
+      "process.env.SESSION_COOKIE_NAME": JSON.stringify(site.dev.sessionCookieName),
+      "process.env.DROPTYPE_ID": JSON.stringify(site.dev.dropTypeId)
     })
   ]
 
