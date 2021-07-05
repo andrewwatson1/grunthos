@@ -21,9 +21,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexGrow: 1,
     height: "200px",
-    backgroundPosition: "center",
+    backgroundPosition: "center -180px",
     [theme.breakpoints.up("sm")]: {
-      height: "100%"
+      height: "100%",
+      backgroundPosition: "center"
     }
   },
   imgLoader: {
