@@ -48,7 +48,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "225%",
     fontFamily: "'Kirang Haerang', cursive",
     color: "#d0ba80",
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
+    [theme.breakpoints.up("sm")]: {
+      fontSize: "300%"
+    }
   },
   content: {
     borderRadius: "10px",
