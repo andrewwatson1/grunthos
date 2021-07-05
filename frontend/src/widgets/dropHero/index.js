@@ -1,47 +1,105 @@
 // System
 import React from "react";
 
-// Chart js
-import { Bar } from "react-chartjs-2";
-
 // Mui
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import Container from "@material-ui/core/Container";
+import Skeleton from "@material-ui/lab/Skeleton";
+import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
 // Custom styles
 const useStyles = makeStyles((theme) => ({
+  dropHero: {
+    background: "#bababa",
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2)
+  },
+  img: {
+    display: "flex",
+    flexGrow: 1,
+    height: "200px",
+    backgroundPosition: "center",
+    [theme.breakpoints.up("sm")]: {
+      height: "100%"
+    }
+  },
+  imgLoader: {
+    height: "200px",
+    [theme.breakpoints.up("sm")]: {
+      height: "100%"
+    }
+  },
+  body: {
+    background: "#43443a",
+    padding: theme.spacing(2),
+    "& .MuiTypography-caption": {
+      fontWeight: "700",
+      color: "#bababa"
+    }
+  },
+  header: {
 
+  },
   title: {
-    "& .MuiTypography-root": {
-      fontSize: "150%",
-      fontWeight: "500"
-    }
+    fontSize: "225%",
+    fontFamily: "'Kirang Haerang', cursive",
+    color: "#d0ba80",
+    marginBottom: theme.spacing(2)
   },
-
-  poet: {
-    "& .MuiTypography-root": {
-      fontSize: "90%",
-      fontWeight: "600",
-      marginBottom: "50px"
-    }
-  },
-
-  poem: {
+  content: {
+    borderRadius: "10px",
+    background: "#27271f",
+    padding: theme.spacing(2),
+    height: "300px",
+    overflow: "auto",
     "& .MuiTypography-root": {
       fontFamily: "'Kirang Haerang', cursive",
-      fontSize: "200%",
-      marginBottom: "50px",
-      whiteSpace: "pre"
+      whiteSpace: "pre-line",
+      fontSize: "150%",
+      lineHeight: "1.35",
+      color: "#bebdb4"
+    }
+  },
+  caution: {
+    fontSize: "80%",
+    color: "#bebdb4",
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4)
+  },
+  specs: {
+    margin: `${theme.spacing(2)}px 0`
+  },
+  spec: {
+    background: "#d0ba80",
+    padding: theme.spacing(1),
+    "& .MuiTypography-root": {
+      fontSize: "90%",
+      fontWeight: "bold",
+      "& span": {
+        display: "block",
+        fontSize: "65%",
+        fontWeight: "normal",
+        textTransform: "uppercase",
+        opacity: ".8"
+      }
+    }
+  },
+  auction: {
+    background: "#fafafa",
+    padding: theme.spacing(2),
+    "& .auction-item-title": {
+      display: "block",
+      opacity: ".8",
+      textTransform: "uppercase",
+      fontSize: "90%"
+    },
+    "& .auction-item-value": {
+      fontWeight: "bold"
     }
   }
-
 }));
 
 // Widget
@@ -49,9 +107,6 @@ export const DropHero = ({ drop }) => {
 
   // Classes
   const classes = useStyles();
-
-  // Theme
-  const theme = useTheme();
 
   // State
   const [data, setData] = React.useState({});
@@ -63,11 +118,18 @@ export const DropHero = ({ drop }) => {
     if (drop) {
 
       // Update
+      setData({ ...drop });
+
+      /*
+      // Used to test loaders
       setData({
-        title: drop.snowcrash_drop.title,
-        poem: drop.snowcrash_drop.poem,
-        poet: drop.snowcrash_drop.poet
+        img: drop.img,
+        title: drop.title,
+        artist: drop.artist,
+        content: drop.content,
+        auction: drop.auction
       });
+      */
 
       // Done
       return;
@@ -81,99 +143,99 @@ export const DropHero = ({ drop }) => {
 
   // render
   return (
-    <Card>
-      <CardContent>
+    <Box className={classes.dropHero}>
 
-        <Box className={classes.title}>
-          {
-            data.title
-              ? <Typography component="h2">{data.title}</Typography>
-              : <Box className={classes.titleLoader}><LinearProgress /></Box>
-          }
-        </Box>
+      <Container>
 
-        <Box className={classes.poet}>
-          {
-            data.poet
-              ? <Typography>{data.poet}</Typography>
-              : <Box className={classes.poetLoader}><LinearProgress /></Box>
-          }
-        </Box>
+        <Grid container spacing={2}>
 
-        <Grid container>
+          <Grid item xs={12} sm={5}>
 
-          <Grid item xs={12} sm={6} md={8}>
-
-            <Box className={classes.poem}>
-              {
-                data.poem
-                  ? <Typography>{data.poem}</Typography>
-                  : <Box className={classes.poemLoader}><CircularProgress /></Box>
-              }
-            </Box>
+            {data.img
+              ? <Box className={classes.img} style={{ backgroundImage: `url(${data.img})` }}></Box>
+              : <Skeleton className={classes.imgLoader} animation="wave" variant="rect" />
+            }
 
           </Grid>
 
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={7}>
 
-            <Box>
+            <Box className={classes.body}>
 
-              <Bar
+              {data.title
+                ? <Box className={classes.header}>
+                  <Typography variant="caption">Available Now!!</Typography>
+                  <Typography variant="h2" className={classes.title}>{data.title}</Typography>
+                </Box>
+                : <Skeleton animation="wave" variant="rect" width="100%" height={50} />
+              }
 
-                data={{
-                  labels: ["Good", "Bad"],
-                  datasets: [
-                    {
-                      label: "Votes",
-                      data: [254, 344],
-                      backgroundColor: [
-                        theme.palette.success.light,
-                        theme.palette.error.light
-                      ]
-                    }
-                  ]
-                }}
+              {data.content
+                ? <Box className={classes.content}><Typography>{data.content}</Typography></Box>
+                : <Skeleton animation="wave" variant="rect" width="100%" height={125} />}
 
-                options={{
-                  plugins: {
-                    legend: {
-                      display: false
-                    }
-                  },
-                  scales: {
-                    yAxes: [
-                      {
-                        ticks: {
-                          beginAtZero: true
-                        }
-                      }
-                    ]
-                  }
-                }}
+              {data.content && <Typography className={classes.caution}>^ Use caution while reading. If you feel discomfort, well that&apos;s bound to happen.</Typography>}
 
-              />
+              <Box className={classes.specs}>
+
+                <Grid container spacing={2}>
+
+                  <Grid item>
+
+                    {data.artist
+                      ? <Box className={classes.spec}><Typography><span>Artist</span> {data.artist}</Typography></Box>
+
+                      : <Skeleton animation="wave" variant="rect" width={100} height={50} />}
+
+                  </Grid>
+
+                  <Grid item>
+
+                    {data.artist
+                      ? <Box className={classes.spec}><Typography><span>Format</span> NFT</Typography></Box>
+
+                      : <Skeleton animation="wave" variant="rect" width={50} height={50} />}
+
+                  </Grid>
+
+                </Grid>
+
+              </Box>
+
+              {
+                data.auction
+                  ? <Box className={classes.auction}>
+                    <Grid container spacing={2} alignItems="center">
+
+                      <Grid item xs={7} md={5}>
+                        <Typography className="auction-item-title">Auction Status</Typography>
+                        <Typography className="auction-item-value">2 Days, 7 hours, 34 mins</Typography>
+                      </Grid>
+
+                      <Grid item xs={5} md={4}>
+                        <Typography className="auction-item-title">Current Bid</Typography>
+                        <Typography className="auction-item-value">32 SOL</Typography>
+                      </Grid>
+
+                      <Grid item xs={12} md={3}>
+                        <Button variant="contained" color="secondary">Make an offer</Button>
+                      </Grid>
+
+
+                    </Grid>
+                  </Box>
+                  : <Skeleton animation="wave" variant="rect" width="100%" height={50} />
+              }
 
             </Box>
-
-            <Grid container spacing={3}>
-
-              <Grid item xs={6}><Button variant="contained" fullWidth>Good</Button></Grid>
-              <Grid item xs={6}><Button variant="contained" fullWidth>Bad</Button></Grid>
-
-              <Grid item xs={6}><Typography variant="body2">Rank</Typography></Grid>
-              <Grid item xs={6}><Typography variant="body2">389/518</Typography></Grid>
-
-              <Grid item xs={6}><Typography variant="body2">Status</Typography></Grid>
-              <Grid item xs={6}><Typography variant="body2">Available (<u>Make offer</u>)</Typography></Grid>
-
-            </Grid>
 
           </Grid>
 
         </Grid>
 
-      </CardContent>
-    </Card >
+      </Container>
+
+    </Box>
   );
 
 };

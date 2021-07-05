@@ -3,11 +3,11 @@ import React from "react";
 
 // Mui
 import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
+import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
+import Container from "@material-ui/core/Container";
 
 // Mothership
 import AppContext from "./../../context/AppContext";
@@ -17,14 +17,19 @@ import LoginDialog from "./../../widgets/loginDialog";
 
 // Custom UI
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
+  appHeader: {
+    marginBottom: "20px"
   },
   title: {
-    flexGrow: 1
+    fontSize: "25px",
+    fontWeight: "700",
+    flexGrow: 1,
+    "& span": {
+      display: "block",
+      fontSize: "12px",
+      fontWeight: "300",
+      paddingTop: "5px"
+    }
   }
 }));
 
@@ -46,27 +51,43 @@ export const AppHeader = () => {
   // Render
   return (
 
-    <AppBar position="static" color="transparent">
-      <Toolbar>
+    <Box className={classes.appHeader}>
 
-        <Typography variant="h6" className={classes.title}>
-          Grunthos
-        </Typography>
+      <Container>
 
-        <Box>
+        <Box pt={2}>
 
-          {
-            // Auth
-            app.util.isLoggedIn()
-              ? <Button color="inherit" onClick={() => app.util.logOut()}>Logout</Button>
-              : <Button disableRipple className={classes.btn} onClick={handleLoginClick}>Login</Button>
+          <Grid container spacing={2}>
 
-          }
+            <Grid item xs={8}>
+              <Typography variant="h1" className={classes.title}>
+                Vogon Odist <span>A gallery of today&apos;s hottest Vogon talent!</span>
+              </Typography>
+            </Grid>
+
+            <Grid item xs={4}>
+
+              <Box display="flex" justifyContent="flex-end">
+
+                {
+                  // Auth
+                  app.util.isLoggedIn()
+                    ? <Button size="small" variant="outlined" onClick={() => app.util.logOut()}>Logout</Button>
+                    : <Button size="small" disableRipple onClick={handleLoginClick}>Login</Button>
+
+                }
+
+              </Box>
+
+            </Grid>
+
+          </Grid>
 
         </Box>
 
-      </Toolbar>
-    </AppBar>
+      </Container>
+
+    </Box >
 
   );
 

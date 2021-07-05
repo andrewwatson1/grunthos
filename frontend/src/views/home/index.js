@@ -3,7 +3,6 @@ import React from "react";
 
 // Mui
 import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
 
 // Mothership
 import AppContext from "./../../context/AppContext";
@@ -38,10 +37,12 @@ export const Home = () => {
 
     }
 
+    // Find random drop to be featured
+    const featuredDrop = app.drops.data[0].grunthos_drop;
+
     // Set our state and render
     setState({
-      featuredDrop: app.drops.data[0],
-      secondaryDrop: app.drops.data[1]
+      featuredDrop
     });
 
   }, [app.drops, app.drops.data]);
@@ -50,18 +51,10 @@ export const Home = () => {
   return (
 
     <Box>
+
       <AppHeader />
-      <Container>
 
-        <Box p={2}>
-          <DropHero drop={state.featuredDrop} />
-        </Box>
-
-        <Box p={2}>
-          <DropHero drop={state.secondaryDrop} />
-        </Box>
-
-      </Container>
+      <DropHero drop={state.featuredDrop} />
 
     </Box>
 

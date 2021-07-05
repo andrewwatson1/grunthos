@@ -15,6 +15,9 @@ import MuiAlert from "@material-ui/lab/Alert";
 // Load theme layer
 import ThemeWrapper from "./../theme/ThemeWrapper";
 
+// Get the data
+import dropData from "./../_static/json/drops";
+
 // Init global App context
 export const AppContext = React.createContext();
 
@@ -352,6 +355,27 @@ export const AppProvider = props => {
 
       // Id
       const dropTypeId = process.env.DROPTYPE_ID;
+
+      // For now
+      const data = dropData;
+
+      // If we have some
+      if (data) {
+
+        // Absorb
+        renderApp(a => {
+
+          // Bring in drops
+          a.drops.data = [...data];
+
+          // Commit
+          return { ...a };
+
+        });
+
+        return;
+
+      }
 
       // Try
       try {

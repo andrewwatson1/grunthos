@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
   },
   poem: {
     fontFamily: "'Kirang Haerang', cursive",
-    fontSize: "400%",
+    fontSize: "200%",
     marginBottom: "50px"
   },
   content: {

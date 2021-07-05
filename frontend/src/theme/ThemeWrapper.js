@@ -12,16 +12,15 @@ import { CssBaseline } from "@material-ui/core";
 const baseThemeOptions = {
   palette: {
     primary: {
-      main: "#000000"
+      main: "#d0ba80"
     },
     secondary: {
       main: "#1f5ca6"
     }
   },
   typography: {
-    fontFamily: ["open-sans", "sans-serif"].join(","),
     button: {
-      textTransform: "none"
+      //textTransform: "none"
     }
   }
 };
