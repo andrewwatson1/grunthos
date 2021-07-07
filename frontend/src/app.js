@@ -24,6 +24,7 @@ const App = () => {
 
           { /* Landing */}
           <ProtectedRoute
+            //acl={[]}
             acl={["member"]}
             exact
             path="/"

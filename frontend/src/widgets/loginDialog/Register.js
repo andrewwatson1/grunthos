@@ -18,27 +18,9 @@ import AppContext from "./../../context/AppContext";
 
 // Custom layout
 const useStyles = makeStyles(() => ({
-  comingSoon: {
-    background: "#000",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "fixed",
-    flexGrow: "1",
-    height: "100%",
-    width: "100%"
-  },
-  content: {
-
-  },
-  focus: {
-    width: "100%",
-    height: "auto"
-  },
-  rowSignUp: {
-    "& .MuiTypography-root": {
-      fontWeight: "bold"
-    }
+  title: {
+    fontSize: "150%",
+    fontWeight: "600"
   }
 }));
 
@@ -201,11 +183,11 @@ export const Register = ({ setPanel }) => {
       <Box>
 
         <Box textAlign="center" mb={1}>
-          <Typography variant="h4" component="p">Create Account</Typography>
+          <Typography component="h2" className={classes.title}>Create Account</Typography>
         </Box>
 
         <Box textAlign="center" mb={3}>
-          <Typography variant="subtitle1" component="p">Sign up to continue</Typography>
+          <Typography component="p" className={classes.subTitle}>Sign up to continue</Typography>
         </Box>
 
         <Box component="form" onSubmit={formSubmit} ref={form} mb={3}>
@@ -213,27 +195,27 @@ export const Register = ({ setPanel }) => {
           <Grid container spacing={2}>
 
             <Grid item xs={12}>
-              <TextField name="username" label="Username" variant="outlined" fullWidth required color="secondary" />
+              <TextField name="username" label="Username" variant="outlined" fullWidth required />
             </Grid>
 
             <Grid item xs={12}>
-              <TextField name="email" label="Email Address" variant="outlined" fullWidth required color="secondary" />
+              <TextField name="email" label="Email Address" variant="outlined" fullWidth required />
             </Grid>
 
             <Grid item xs={12}>
-              <TextField name="password" label="Password" variant="outlined" fullWidth type="password" required color="secondary" />
+              <TextField name="password" label="Password" variant="outlined" fullWidth type="password" />
             </Grid>
 
             <Grid item xs={12}>
-              <TextField name="passwordConfirm" label="Confirm Password" variant="outlined" fullWidth type="password" required color="secondary" />
+              <TextField name="passwordConfirm" label="Confirm Password" variant="outlined" fullWidth type="password" required />
             </Grid>
 
             <Grid item xs={2}>
-              <Checkbox inputProps={{ "aria-label": "primary checkbox", "name": "agreeToTerms", "value": true }}
+              <Checkbox inputProps={{ "id": "agreeToTerms", "name": "agreeToTerms", "value": true }}
               />
             </Grid>
             <Grid item xs={10}>
-              <Typography variant="body2">I certify that I am 18 years of age or older, and agree to the User Agreement and Privacy Policy.</Typography>
+              <Typography variant="body2" component="label" htmlFor="agreeToTerms" style={{ display: "block" }}>I certify that I am 18 years of age or older, and agree to the User Agreement and Privacy Policy.</Typography>
             </Grid>
 
             {
@@ -250,7 +232,7 @@ export const Register = ({ setPanel }) => {
 
                   ? <Box p={2}><LinearProgress /></Box>
 
-                  : <Button size="large" variant="contained" fullWidth type="submit" color="primary" disableElevation style={{ borderRadius: "50px" }}>Sign Up</Button>
+                  : <Button size="large" variant="contained" fullWidth type="submit" color="primary">Sign Up</Button>
               }
             </Grid>
 
@@ -262,13 +244,13 @@ export const Register = ({ setPanel }) => {
 
       <Grid container>
 
-        <Grid item xs={8} className={classes.rowSignUp}>
-          <Typography color="secondary">Already have an account?</Typography>
+        <Grid item xs={8}>
+          <Typography>Already have an account?</Typography>
         </Grid>
 
-        <Grid item xs={4} className={classes.rowSignUp}>
+        <Grid item xs={4}>
           <Box textAlign="right" onClick={() => setPanel("login")}>
-            <Typography color="secondary" style={{ cursor: "pointer" }}>Log in</Typography>
+            <Typography color="primary" style={{ cursor: "pointer", fontWeight: "600" }}>Log in</Typography>
           </Box>
         </Grid>
 

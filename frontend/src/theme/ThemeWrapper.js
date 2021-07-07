@@ -1,26 +1,21 @@
 // System
-import React, { useContext, useEffect, useState } from "react";
-
-// Mothership 
-import AppContext from "../context/AppContext";
+import React from "react";
 
 // Mui
-import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import { CssBaseline } from "@material-ui/core";
+import { ThemeProvider, createTheme } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
-// Local 
-const baseThemeOptions = {
+// Mothership
+import AppContext from "../context/AppContext";
+
+// Base
+const baseTheme = {
   palette: {
     primary: {
-      main: "#d0ba80"
+      main: "#373632"
     },
     secondary: {
-      main: "#1f5ca6"
-    }
-  },
-  typography: {
-    button: {
-      //textTransform: "none"
+      main: "#d0ba80"
     }
   }
 };
@@ -29,27 +24,39 @@ const baseThemeOptions = {
 export const ThemeWrapper = props => {
 
   // Wire up
-  const app = useContext(AppContext);
+  const app = React.useContext(AppContext);
 
   // State
-  const [theme, setTheme] = useState(createMuiTheme(baseThemeOptions));
+  const [theme, setTheme] = React.useState({ ...baseTheme });
 
-  // Monitor isDarkMode
-  useEffect(() => {
+  // Listen for updates to the user
+  React.useEffect(() => {
 
-    // Simple toggle
-    app.isDarkMode
-      ? baseThemeOptions.palette.type = "dark"
-      : baseThemeOptions.palette.type = "light";
+    if (app.user.isDarkMode === true && theme.palette.type !== "dark") {
 
-    // Make it so
-    setTheme(createMuiTheme(baseThemeOptions));
+      // Set
+      setTheme(t => {
+        t.palette.type = "dark";
+        return { ...t };
+      });
 
-  }, [app.isDarkMode]);
+    }
+
+    if (app.user.isDarkMode === false && theme.palette.type !== "light") {
+
+      // Set
+      setTheme(t => {
+        t.palette.type = "light";
+        return { ...t };
+      });
+
+    }
+
+  }, [app.user.isDarkMode]);
 
   // Render
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={createTheme(theme)}>
       <CssBaseline />
       {props.children}
     </ThemeProvider>

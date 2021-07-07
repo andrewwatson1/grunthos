@@ -13,97 +13,95 @@ import Button from "@material-ui/core/Button";
 // Custom styles
 const useStyles = makeStyles((theme) => ({
   dropHero: {
-    background: "#bababa",
+    background: theme.palette.grey[400],
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2)
   },
-  img: {
-    display: "flex",
-    flexGrow: 1,
-    height: "200px",
-    backgroundPosition: "center -180px",
-    [theme.breakpoints.up("sm")]: {
-      height: "100%",
-      backgroundPosition: "center"
-    }
-  },
-  imgLoader: {
-    height: "200px",
-    [theme.breakpoints.up("sm")]: {
-      height: "100%"
-    }
-  },
-  body: {
-    background: "#43443a",
-    padding: theme.spacing(2),
-    "& .MuiTypography-caption": {
-      fontWeight: "700",
-      color: "#bababa"
-    }
-  },
-  header: {
 
+  heading: {
+    background: theme.palette.primary.main,
+    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(2),
+    "& .MuiTypography-caption": {
+      color: theme.palette.grey[400],
+      textTransform: "uppercase"
+    }
   },
+
   title: {
+    fontStyle: "italic",
     fontSize: "225%",
-    fontFamily: "'Kirang Haerang', cursive",
-    color: "#d0ba80",
-    marginBottom: theme.spacing(2),
+    fontWeight: "700",
+    color: theme.palette.secondary.main,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
     [theme.breakpoints.up("sm")]: {
       fontSize: "300%"
     }
   },
-  content: {
-    borderRadius: "10px",
-    background: "#27271f",
+
+  artist: {
+    color: theme.palette.grey[400],
+    fontSize: "90%"
+  },
+
+  body: {
+    paddingBottom: theme.spacing(2),
+    paddingTop: theme.spacing(2)
+  },
+
+  poem: {
+    background: theme.palette.background.paper,
     padding: theme.spacing(2),
-    height: "300px",
-    overflow: "auto",
     "& .MuiTypography-root": {
-      fontFamily: "'Kirang Haerang', cursive",
-      whiteSpace: "pre-line",
-      fontSize: "150%",
-      lineHeight: "1.35",
-      color: "#bebdb4"
+      fontFamily: "'Concert One', cursive",
+      fontSize: "125%",
+      fontStyle: "italic",
+      whiteSpace: "pre-line"
     }
   },
+
   caution: {
     fontSize: "80%",
-    color: "#bebdb4",
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(4)
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+    color: theme.palette.getContrastText(theme.palette.grey[400]),
+    "& strong": {
+      color: theme.palette.error.dark
+    }
   },
+
   specs: {
-    margin: `${theme.spacing(2)}px 0`
+
   },
+
   spec: {
-    background: "#d0ba80",
+    background: theme.palette.grey[200],
     padding: theme.spacing(1),
-    "& .MuiTypography-root": {
-      fontSize: "90%",
-      fontWeight: "bold",
-      "& span": {
-        display: "block",
-        fontSize: "65%",
-        fontWeight: "normal",
-        textTransform: "uppercase",
-        opacity: ".8"
-      }
+    color: theme.palette.getContrastText(theme.palette.grey[200]),
+    "& strong": {
+      fontWeight: "500"
+    },
+    "& span": {
+      fontWeight: "300",
+      display: "block",
+      fontSize: "75%",
+      textTransform: "uppercase"
     }
   },
+
   auction: {
-    background: "#fafafa",
+    background: theme.palette.primary.dark,
     padding: theme.spacing(2),
+    marginTop: theme.spacing(3),
+    color: theme.palette.primary.contrastText,
     "& .auction-item-title": {
-      display: "block",
-      opacity: ".8",
-      textTransform: "uppercase",
-      fontSize: "90%"
+      fontSize: "75%",
+      textTransform: "uppercase"
     },
-    "& .auction-item-value": {
-      fontWeight: "bold"
-    }
+    "& .auction-item-value": {}
   }
+
 }));
 
 // Widget
@@ -127,7 +125,6 @@ export const DropHero = ({ drop }) => {
       /*
       // Used to test loaders
       setData({
-        img: drop.img,
         title: drop.title,
         artist: drop.artist,
         content: drop.content,
@@ -149,95 +146,82 @@ export const DropHero = ({ drop }) => {
   return (
     <Box className={classes.dropHero}>
 
-      <Container>
+      <Box className={classes.heading}>
+        <Container>
 
-        <Grid container spacing={2}>
+          {data.title
 
-          <Grid item xs={12} sm={5}>
+            ? <>
+              <Typography variant="caption">Available Now:</Typography>
+              <Typography variant="h2" className={classes.title}>{data.title}</Typography>
+              <Typography className={classes.artist}><b>{data.artist}</b></Typography>
+            </>
 
-            {data.img
-              ? <Box className={classes.img} style={{ backgroundImage: `url(${data.img})` }}></Box>
-              : <Skeleton className={classes.imgLoader} animation="wave" variant="rect" />
-            }
+            : <Skeleton animation="wave" variant="rect" width="100%" height={50} />
 
-          </Grid>
+          }
+        </Container>
+      </Box>
 
-          <Grid item xs={12} sm={7}>
+      <Box className={classes.body}>
+        <Container>
 
-            <Box className={classes.body}>
+          {data.content
+            ? <Box className={classes.poem}><Typography>{data.content}</Typography></Box>
+            : <Skeleton animation="wave" variant="rect" width="100%" height={125} />}
 
-              {data.title
-                ? <Box className={classes.header}>
-                  <Typography variant="caption">Available Now!!</Typography>
-                  <Typography variant="h2" className={classes.title}>{data.title}</Typography>
-                </Box>
-                : <Skeleton animation="wave" variant="rect" width="100%" height={50} />
-              }
+          {data.content && <Typography className={classes.caution}><strong>^ Use caution while reading.</strong> If you feel discomfort, well that&apos;s bound to happen.</Typography>}
 
-              {data.content
-                ? <Box className={classes.content}><Typography>{data.content}</Typography></Box>
-                : <Skeleton animation="wave" variant="rect" width="100%" height={125} />}
+          <Box className={classes.specs}>
+            <Grid container spacing={2}>
 
-              {data.content && <Typography className={classes.caution}>^ Use caution while reading. If you feel discomfort, well that&apos;s bound to happen.</Typography>}
+              <Grid item>
 
-              <Box className={classes.specs}>
+                {data.artist
+                  ? <Box className={classes.spec}><Typography><span>Artist</span> <strong>{data.artist}</strong></Typography></Box>
 
-                <Grid container spacing={2}>
+                  : <Skeleton animation="wave" variant="rect" width={100} height={50} />}
 
-                  <Grid item>
+              </Grid>
 
-                    {data.artist
-                      ? <Box className={classes.spec}><Typography><span>Artist</span> {data.artist}</Typography></Box>
+              <Grid item>
 
-                      : <Skeleton animation="wave" variant="rect" width={100} height={50} />}
+                {data.artist
+                  ? <Box className={classes.spec}><Typography><span>Format</span> <strong>NFT</strong></Typography></Box>
 
+                  : <Skeleton animation="wave" variant="rect" width={50} height={50} />}
+
+              </Grid>
+
+            </Grid>
+          </Box>
+
+          {
+            data.auction
+              ? <Box className={classes.auction}>
+                <Grid container spacing={2} alignItems="center">
+
+                  <Grid item xs={12} md={5}>
+                    <Typography className="auction-item-title">Auction Status</Typography>
+                    <Typography className="auction-item-value">2 Days, 7 hours, 34 mins</Typography>
                   </Grid>
 
-                  <Grid item>
+                  <Grid item xs={12} md={4}>
+                    <Typography className="auction-item-title">Current Bid</Typography>
+                    <Typography className="auction-item-value">32 SOL</Typography>
+                  </Grid>
 
-                    {data.artist
-                      ? <Box className={classes.spec}><Typography><span>Format</span> NFT</Typography></Box>
-
-                      : <Skeleton animation="wave" variant="rect" width={50} height={50} />}
-
+                  <Grid item xs={12} md={3}>
+                    <Button variant="contained" color="secondary">Make an offer</Button>
                   </Grid>
 
                 </Grid>
-
               </Box>
+              : <Skeleton animation="wave" variant="rect" width="100%" height={50} />
+          }
 
-              {
-                data.auction
-                  ? <Box className={classes.auction}>
-                    <Grid container spacing={2} alignItems="center">
-
-                      <Grid item xs={7} md={5}>
-                        <Typography className="auction-item-title">Auction Status</Typography>
-                        <Typography className="auction-item-value">2 Days, 7 hours, 34 mins</Typography>
-                      </Grid>
-
-                      <Grid item xs={5} md={4}>
-                        <Typography className="auction-item-title">Current Bid</Typography>
-                        <Typography className="auction-item-value">32 SOL</Typography>
-                      </Grid>
-
-                      <Grid item xs={12} md={3}>
-                        <Button variant="contained" color="secondary">Make an offer</Button>
-                      </Grid>
-
-
-                    </Grid>
-                  </Box>
-                  : <Skeleton animation="wave" variant="rect" width="100%" height={50} />
-              }
-
-            </Box>
-
-          </Grid>
-
-        </Grid>
-
-      </Container>
+        </Container>
+      </Box>
 
     </Box>
   );

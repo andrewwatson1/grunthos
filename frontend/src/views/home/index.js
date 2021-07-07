@@ -50,13 +50,13 @@ export const Home = () => {
   // Render
   return (
 
-    <Box>
+    <>
 
       <AppHeader />
 
       <DropHero drop={state.featuredDrop} />
 
-    </Box>
+    </>
 
   );
 

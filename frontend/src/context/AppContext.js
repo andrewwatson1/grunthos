@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   closeBtn: {
     display: "block",
-    position: "absolute",
+    position: "absolute !important",
     top: "0",
     right: "0",
     zIndex: "2"
@@ -469,6 +469,32 @@ export const AppProvider = props => {
 
     };
 
+    // Toggle dark mode
+    app.util.toggleDarkMode = () => {
+
+      // Render
+      renderApp(a => {
+
+        // First time?
+        if (typeof app.user.isDarkMode === "undefined") {
+
+          // Make it so
+          a.user.isDarkMode = true;
+
+        } else {
+
+          // Do the opposite
+          a.user.isDarkMode = !a.user.isDarkMode;
+
+        }
+
+        // Commit
+        return { ...a };
+
+      });
+
+    };
+
     // First, attempt to load local session
     const localSession = app.util.loadSession();
 
@@ -502,7 +528,7 @@ export const AppProvider = props => {
         </Backdrop>
 
         {/* Dialog */}
-        <Dialog open={dialog && dialog.isOpen} onClose={dialog.onClose} maxWidth="xs" disableBackdropClick>
+        <Dialog open={dialog && dialog.isOpen} onClose={dialog.onClose} maxWidth="xs" >
           <DialogContent>
 
             {dialog.content}
