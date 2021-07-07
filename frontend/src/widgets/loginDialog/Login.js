@@ -11,36 +11,16 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Checkbox from "@material-ui/core/Checkbox";
 
 // Mothership
 import AppContext from "./../../context/AppContext";
 
-// Util
-import { Checkbox } from "@material-ui/core";
-
 // Custom layout
 const useStyles = makeStyles(() => ({
-  comingSoon: {
-    background: "#000",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "fixed",
-    flexGrow: "1",
-    height: "100%",
-    width: "100%"
-  },
-  content: {
-
-  },
-  focus: {
-    width: "100%",
-    height: "auto"
-  },
-  rowSignUp: {
-    "& .MuiTypography-root": {
-      fontWeight: "bold"
-    }
+  title: {
+    fontSize: "150%",
+    fontWeight: "600"
   }
 }));
 
@@ -135,11 +115,11 @@ export const Login = ({ setPanel }) => {
       <Box>
 
         <Box textAlign="center" mb={1}>
-          <Typography variant="h4" component="p">Log In</Typography>
+          <Typography component="h2" className={classes.title}>Vogon Odist</Typography>
         </Box>
 
         <Box textAlign="center" mb={3}>
-          <Typography variant="subtitle1" component="p">Please Log In to continue</Typography>
+          <Typography component="p" className={classes.subTitle}>Please log in to continue</Typography>
         </Box>
 
         <Box component="form" onSubmit={formSubmit} ref={form} mb={3}>
@@ -172,7 +152,7 @@ export const Login = ({ setPanel }) => {
 
                   ? <Box p={2} minHeight="42px"><LinearProgress /></Box>
 
-                  : <Button size="large" variant="contained" fullWidth type="submit" color="primary" disableElevation style={{ borderRadius: "50px" }} >Log in</Button>
+                  : <Button size="large" variant="contained" color="primary" fullWidth type="submit">Log in</Button>
               }
             </Grid>
 
@@ -184,13 +164,13 @@ export const Login = ({ setPanel }) => {
 
       <Grid container>
 
-        <Grid item xs={8} className={classes.rowSignUp}>
-          <Typography color="secondary">Don&apos;t have an account?</Typography>
+        <Grid item xs={8}>
+          <Typography>Don&apos;t have an account?</Typography>
         </Grid>
 
-        <Grid item xs={4} className={classes.rowSignUp}>
+        <Grid item xs={4}>
           <Box textAlign="right" onClick={() => setPanel("register")}>
-            <Typography color="secondary" style={{ cursor: "pointer" }}>Sign up</Typography>
+            <Typography color="primary" style={{ cursor: "pointer", fontWeight: "600" }}>Sign up</Typography>
           </Box>
         </Grid>
 

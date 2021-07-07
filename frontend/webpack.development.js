@@ -27,6 +27,9 @@ module.exports = merge(common, {
   // Dev server
   devServer: {
 
+    // ?
+    inline: true,
+
     // Push updates
     hot: true,
 

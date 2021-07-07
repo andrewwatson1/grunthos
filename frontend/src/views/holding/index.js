@@ -23,11 +23,6 @@ const useStyles = makeStyles(() => ({
     height: "100%",
     width: "100%"
   },
-  poem: {
-    fontFamily: "'Kirang Haerang', cursive",
-    fontSize: "200%",
-    marginBottom: "50px"
-  },
   content: {
     maxWidth: "768px",
     padding: "20px"
@@ -54,11 +49,15 @@ export const Holding = () => {
     <Box className={classes.comingSoon}>
       <Box className={classes.content} onClick={handleImageClick}>
 
-        <Typography className={classes.poem}>
-          Oh freddled gruntbuggly,
-          Thy micturations are to me,
-          As plurdled gabbleblotchits,
+        <Typography className={classes.poem} gutterBottom variant="body1">
+          Oh freddled gruntbuggly,<br />
+          Thy micturations are to me,<br />
+          As plurdled gabbleblotchits,<br />
           in midsummer morning On a lurgid bee...
+        </Typography>
+
+        <Typography variant="caption" className={classes.author}>
+          - Prostetnic Vogon Jeltz
         </Typography>
 
       </Box>
