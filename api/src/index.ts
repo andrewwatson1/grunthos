@@ -2,10 +2,15 @@ import cors from "cors"
 import type { CorsOptions } from "cors"
 import express from "express"
 
-import { reporter, grunthosTags, errorReportingMiddleware } from "./utils/reporting"
+import {
+    reporter,
+    grunthosTags,
+    errorReportingMiddleware,
+} from "./reporting"
+import { poemsAPI } from "./routes/poems"
 import { usersAPI } from "./routes/users"
-import { loggingMiddleware } from "./utils/logging"
-import { allowedOrigins, GRUNTHOS_PORT } from "./utils/settings"
+import { loggingMiddleware } from "./logging"
+import { allowedOrigins, GRUNTHOS_PORT } from "./settings"
 import { GRUNTHOS_VERSION } from "./version"
 
 const app = express()
@@ -19,6 +24,7 @@ app.use(corsMiddleware)
 
 app.use(express.json())
 app.use(loggingMiddleware)
+app.use("/poems", poemsAPI)
 app.use("/users", usersAPI)
 
 app.get("/ping", (_, res) => {

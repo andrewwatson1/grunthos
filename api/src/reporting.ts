@@ -5,7 +5,7 @@ import type { Request, Response, NextFunction } from "express"
 import { v4 as uuidv4 } from "uuid"
 
 import { BUGOUT_REPORTER_TOKEN, GRUNTHOS_SERVER_ID } from "./settings"
-import { GRUNTHOS_VERSION } from "../version"
+import { GRUNTHOS_VERSION } from "./version"
 
 const consent = new HumbugConsent(true)
 

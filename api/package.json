@@ -35,7 +35,7 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@bugout/bugout-js": "0.0.7",
+    "@bugout/bugout-js": "0.0.8",
     "@bugout/humbug": "0.0.5",
     "@solana/spl-token": "^0.1.6",
     "@solana/web3.js": "^1.20.0",
