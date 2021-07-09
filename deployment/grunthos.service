@@ -1,0 +1,14 @@
+[Unit]
+Description=grunthos-service
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/grunthos/api
+EnvironmentFile=/home/ubuntu/secrets/app.env
+ExecStart=nodemon -w grunthos/ --exec npm start | bunyan
+SyslogIdentifier=grunthos
+
+[Install]
+WantedBy=multi-user.target
