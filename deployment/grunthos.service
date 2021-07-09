@@ -7,7 +7,7 @@ User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/grunthos/api
 EnvironmentFile=/home/ubuntu/secrets/app.env
-ExecStart=nodemon -w grunthos/ --exec npm start | bunyan
+ExecStart=/home/ubuntu/grunthos/api/node_modules/.bin/nodemon -w grunthos/ --exec npm start | bunyan
 SyslogIdentifier=grunthos
 
 [Install]
