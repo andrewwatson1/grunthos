@@ -2,11 +2,7 @@ import cors from "cors"
 import type { CorsOptions } from "cors"
 import express from "express"
 
-import {
-    reporter,
-    grunthosTags,
-    errorReportingMiddleware,
-} from "./reporting"
+import { reporter, grunthosTags, errorReportingMiddleware } from "./reporting"
 import { poemsAPI } from "./routes/poems"
 import { usersAPI } from "./routes/users"
 import { loggingMiddleware } from "./logging"

@@ -1,7 +1,7 @@
 import { BugoutTypes } from "@bugout/bugout-js"
 import express from "express"
 
-import * as data from "./data"
+import * as data from "../data"
 import { issueToken } from "../tokens"
 import { BUGOUT_POEMS_JOURNAL_ID } from "../settings"
 import { bugoutClient, headerAuthToken } from "../utils"
@@ -87,12 +87,17 @@ poemsAPI.get("/:poemId", async (req, res, next) => {
     bugoutClient
         .getEntry(token, BUGOUT_POEMS_JOURNAL_ID, poemId)
         .then((response: BugoutTypes.BugoutJournalEntry) => {
-            const poetList = response.tags.filter((tag) => tag.startsWith("poet:"))
-            const poet = (poetList.length > 0) ? poetList[0] : undefined
+            const poetList = response.tags.filter((tag) =>
+                tag.startsWith("poet:")
+            )
+            const poet = poetList.length > 0 ? poetList[0] : undefined
             const tokenPublicKeyStrList = response.tags.filter((tag) =>
                 tag.startsWith("token:")
             )
-            const tokenPublicKeyStr = (tokenPublicKeyStrList.length > 0) ? tokenPublicKeyStrList[0] : undefined
+            const tokenPublicKeyStr =
+                tokenPublicKeyStrList.length > 0
+                    ? tokenPublicKeyStrList[0]
+                    : undefined
             const poem: data.Poem = {
                 id: response.id,
                 poet: poet,
@@ -125,12 +130,17 @@ poemsAPI.get("/", async (req, res, next) => {
         .then((response: BugoutTypes.BugoutJournalEntries) => {
             let poems: data.Poem[] = []
             response.entries.forEach((entry) => {
-                const poetList = entry.tags.filter((tag) => tag.startsWith("poet:"))
-                const poet = (poetList.length > 0) ? poetList[0] : undefined
+                const poetList = entry.tags.filter((tag) =>
+                    tag.startsWith("poet:")
+                )
+                const poet = poetList.length > 0 ? poetList[0] : undefined
                 const tokenPublicKeyStrList = entry.tags.filter((tag) =>
                     tag.startsWith("token:")
                 )
-                const tokenPublicKeyStr = (tokenPublicKeyStrList.length > 0) ? tokenPublicKeyStrList[0] : undefined
+                const tokenPublicKeyStr =
+                    tokenPublicKeyStrList.length > 0
+                        ? tokenPublicKeyStrList[0]
+                        : undefined
                 poems.push({
                     id: entry.id,
                     poet: poet,
