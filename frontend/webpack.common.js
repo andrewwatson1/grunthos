@@ -1,26 +1,23 @@
-/* eslint-disable */
-
-// Get the site config
-const site = require("./site.config");
+/* global module */
 
 // Webpack config
 module.exports = {
 
   // Each prop is an entry point and creates it's own file on build
   entry: {
-    "app": `./src/app.js`
+    "app": "./src/app.js"
   },
 
   // Tasks
   module: {
 
-    // For every file webpack looks at, run all these
+    // For every file webpack looks at:
     rules: [
 
       // Is it a Javascript file?
       {
-        test: /\.js$/i,
-        include: /src/,
+        test: /\.m?js$/,
+        exclude: /node_modules/,
         use: [
           // 1 -> Let babel do it's thing
           {

@@ -15,16 +15,16 @@ module.exports = {
 
   // Staging environment
   staging: {
-    url: "https://staging.snowcrash.com",
-    urlApi: "https://api.snowcrash.com",
+    url: "https://staging.[grunthos-url].com",
+    urlApi: "https://api.[grunthos-url].com",
     sessionCookieName: "grunthosUserStaging",
     dropTypeId: "ee5cf6ac-2798-4d9e-b982-48c9819b6361"
   },
 
   // Production
   production: {
-    url: "https://snowcrash.com",
-    urlApi: "https://api.snowcrash.com",
+    url: "https://[grunthos-url].com",
+    urlApi: "https://api.[grunthos-url].com",
     sessionCookieName: "grunthosUser",
     dropTypeId: "ee5cf6ac-2798-4d9e-b982-48c9819b6361"
   }

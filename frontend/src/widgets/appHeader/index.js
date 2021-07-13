@@ -1,5 +1,6 @@
 // System
 import React from "react";
+import { useHistory } from "react-router";
 
 // Mui
 import { makeStyles } from "@material-ui/core/styles";
@@ -8,7 +9,6 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
-import BrightnessMediumIcon from "@material-ui/icons/BrightnessMedium";
 import IconButton from "@material-ui/core/IconButton";
 import AccountBoxIcon from "@material-ui/icons/AccountBox";
 import Menu from "@material-ui/core/Menu";
@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
       display: "block",
       fontWeight: "300",
       fontSize: "75%"
-
     },
     [theme.breakpoints.up("md")]: {
       fontSize: "125%",
@@ -40,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(1),
       "& span": {
         fontSize: "65%"
-
       }
     },
     [theme.breakpoints.up("lg")]: {
@@ -49,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(2),
       "& span": {
         fontSize: "50%"
-
       }
     }
   }
@@ -70,6 +67,8 @@ export const AppHeader = () => {
   // Classes
   const classes = useStyles();
 
+  // History
+  const history = useHistory();
 
   // Login open event
   const handleLoginClick = () => app.util.dialog({
@@ -118,16 +117,15 @@ export const AppHeader = () => {
                       onClose={handleUserMenuClose}
                     >
 
-                      <MenuItem onClick={() => app.util.toggleDarkMode()}>
+                      <MenuItem onClick={() => history.push("/account")}>
 
                         <ListItemIcon>
-                          <BrightnessMediumIcon fontSize="small" />
+                          <AccountBoxIcon />
                         </ListItemIcon>
 
-                        <Typography variant="inherit">Light/Dark</Typography>
+                        <Typography variant="inherit">Account</Typography>
 
                       </MenuItem>
-
 
                       <MenuItem onClick={() => app.util.logOut()}>
 

@@ -12,6 +12,7 @@ import ProtectedRoute from "./util/ProtectedRoute";
 // Views
 import Holding from "./views/holding";
 import Home from "./views/home";
+import Account from "./views/account";
 
 // Base App
 const App = () => {
@@ -29,6 +30,16 @@ const App = () => {
             exact
             path="/"
             render={() => <Home />}
+            renderNoAuth={() => <Holding />}
+          />
+
+          { /* Account */}
+          <ProtectedRoute
+            //acl={[]}
+            acl={["member"]}
+            exact
+            path="/account"
+            render={() => <Account />}
             renderNoAuth={() => <Holding />}
           />
 

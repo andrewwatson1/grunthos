@@ -1,5 +1,6 @@
 // System
 import React from "react";
+import { useHistory } from "react-router";
 
 // Mui
 import { makeStyles } from "@material-ui/core/styles";
@@ -51,6 +52,9 @@ export const AppProvider = props => {
 
   // Classes
   const classes = useStyles();
+
+  // History
+  const history = useHistory();
 
   // After the first render
   React.useEffect(() => {
@@ -260,6 +264,9 @@ export const AppProvider = props => {
         a.user = {};
         return { ...a };
       });
+
+      // Go home
+      history.push("/");
 
     };
 
