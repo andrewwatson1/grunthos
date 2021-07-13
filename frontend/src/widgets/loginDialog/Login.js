@@ -114,11 +114,11 @@ export const Login = ({ setPanel }) => {
     <>
       <Box>
 
-        <Box textAlign="center" mb={1}>
+        <Box mb={1}>
           <Typography component="h2" className={classes.title}>Vogon Odist</Typography>
         </Box>
 
-        <Box textAlign="center" mb={3}>
+        <Box mb={3}>
           <Typography component="p" className={classes.subTitle}>Please log in to continue</Typography>
         </Box>
 
@@ -147,13 +147,13 @@ export const Login = ({ setPanel }) => {
             }
 
             <Grid item xs={12}>
-              {
-                state.isLoading
-
-                  ? <Box p={2} minHeight="42px"><LinearProgress /></Box>
-
-                  : <Button size="large" variant="contained" color="primary" fullWidth type="submit">Log in</Button>
-              }
+              <Box mt={3}>
+                {
+                  state.isLoading
+                    ? <Box p={2} minHeight="42px"><LinearProgress /></Box>
+                    : <Button size="large" variant="contained" color="secondary" fullWidth type="submit">Log in</Button>
+                }
+              </Box>
             </Grid>
 
           </Grid>

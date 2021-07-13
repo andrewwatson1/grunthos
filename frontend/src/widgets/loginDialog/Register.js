@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
@@ -17,11 +18,26 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import AppContext from "./../../context/AppContext";
 
 // Custom layout
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   title: {
     fontSize: "150%",
     fontWeight: "600"
+  },
+  formHeading: {
+    borderTop: `1px solid ${theme.palette.grey[300]}`,
+    marginTop: theme.spacing(1),
+    paddingTop: theme.spacing(1),
+    "& .MuiTypography-root": {
+      fontSize: "110%",
+      fontWeight: "700",
+      color: theme.palette.primary.light
+    }
+  },
+  aBitAboutYou: {
+    paddingTop: theme.spacing(2)
+
   }
+
 }));
 
 // Widget
@@ -182,11 +198,11 @@ export const Register = ({ setPanel }) => {
     <>
       <Box>
 
-        <Box textAlign="center" mb={1}>
+        <Box mb={1}>
           <Typography component="h2" className={classes.title}>Create Account</Typography>
         </Box>
 
-        <Box textAlign="center" mb={3}>
+        <Box mb={3}>
           <Typography component="p" className={classes.subTitle}>Sign up to continue</Typography>
         </Box>
 
@@ -202,20 +218,26 @@ export const Register = ({ setPanel }) => {
               <TextField name="email" label="Email Address" variant="outlined" fullWidth required />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <TextField name="password" label="Password" variant="outlined" fullWidth type="password" />
             </Grid>
 
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <TextField name="passwordConfirm" label="Confirm Password" variant="outlined" fullWidth type="password" required />
             </Grid>
 
-            <Grid item xs={2}>
-              <Checkbox inputProps={{ "id": "agreeToTerms", "name": "agreeToTerms", "value": true }}
-              />
-            </Grid>
-            <Grid item xs={10}>
-              <Typography variant="body2" component="label" htmlFor="agreeToTerms" style={{ display: "block" }}>I certify that I am 18 years of age or older, and agree to the User Agreement and Privacy Policy.</Typography>
+            <Grid item xs={12}>
+              <Box className={classes.aBitAboutYou}>
+
+                <Typography variant="subtitle2">A bit about you</Typography>
+
+                <FormControlLabel
+                  value="iAmVogon"
+                  control={<Checkbox color="default" />}
+                  label="I am a Vogon Poet"
+                  labelPlacement="end" />
+
+              </Box>
             </Grid>
 
             {
@@ -227,13 +249,15 @@ export const Register = ({ setPanel }) => {
             }
 
             <Grid item xs={12}>
-              {
-                state.isLoading
+              <Box mt={3}>
+                {
+                  state.isLoading
 
-                  ? <Box p={2}><LinearProgress /></Box>
+                    ? <Box p={2}><LinearProgress /></Box>
 
-                  : <Button size="large" variant="contained" fullWidth type="submit" color="primary">Sign Up</Button>
-              }
+                    : <Button size="large" variant="contained" fullWidth type="submit" color="secondary">Sign Up</Button>
+                }
+              </Box>
             </Grid>
 
           </Grid>

@@ -49,7 +49,7 @@ export const Profile = () => {
 
         <Box mt={4}>
           <Button variant="contained" color="secondary" disableElevation>
-            Primary
+            Save
           </Button>
         </Box>
 
