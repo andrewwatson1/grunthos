@@ -17,7 +17,7 @@ export const LoginModal = () => {
   // Login?
   if (panel === "login") {
     return (
-      <Box pb={6}>
+      <Box pb={3}>
 
         <Login setPanel={setPanel} />
 
@@ -28,7 +28,7 @@ export const LoginModal = () => {
   // Register?
   if (panel === "register") {
     return (
-      <Box pb={6}>
+      <Box pb={3}>
 
         <Register setPanel={setPanel} />
 

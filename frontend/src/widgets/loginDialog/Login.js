@@ -17,10 +17,12 @@ import Checkbox from "@material-ui/core/Checkbox";
 import AppContext from "./../../context/AppContext";
 
 // Custom layout
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   title: {
+    color: theme.palette.primary.dark,
     fontSize: "150%",
-    fontWeight: "600"
+    fontWeight: "600",
+    marginBottom: "0"
   }
 }));
 
@@ -114,28 +116,40 @@ export const Login = ({ setPanel }) => {
     <>
       <Box>
 
-        <Box mb={1}>
+        <Box>
           <Typography component="h2" className={classes.title}>Vogon Odist</Typography>
         </Box>
 
-        <Box mb={3}>
+        <Box mb={5}>
           <Typography component="p" className={classes.subTitle}>Please log in to continue</Typography>
         </Box>
 
-        <Box component="form" onSubmit={formSubmit} ref={form} mb={3}>
+        <Box component="form" onSubmit={formSubmit} ref={form} mb={5}>
 
           <Grid container spacing={2}>
 
             <Grid item xs={12}>
-              <TextField name="username" label="Username" variant="outlined" fullWidth required color="secondary" />
+              <TextField name="username" label="Username" variant="outlined" fullWidth required />
             </Grid>
 
             <Grid item xs={12}>
-              <TextField name="password" label="Password" variant="outlined" fullWidth type="password" required color="secondary" />
+              <TextField name="password" label="Password" variant="outlined" fullWidth type="password" required />
             </Grid>
 
-            <Grid item xs={12}>
-              <FormControlLabel control={<Checkbox name="remember" value="yes" />} label="Remember me" />
+            <Grid item xs={6}>
+              <Box pl={1}>
+                <FormControlLabel control={<Checkbox name="remember" value="yes" color="primary" />} label={<Typography variant="body2">Remember me</Typography>} />
+              </Box>
+            </Grid>
+
+            <Grid item xs={6}>
+              <Box>
+                {
+                  state.isLoading
+                    ? <Box p={2} minHeight="42px"><LinearProgress /></Box>
+                    : <Button size="large" variant="contained" color="primary" fullWidth type="submit">Log in</Button>
+                }
+              </Box>
             </Grid>
 
             {
@@ -146,15 +160,6 @@ export const Login = ({ setPanel }) => {
               )
             }
 
-            <Grid item xs={12}>
-              <Box mt={3}>
-                {
-                  state.isLoading
-                    ? <Box p={2} minHeight="42px"><LinearProgress /></Box>
-                    : <Button size="large" variant="contained" color="secondary" fullWidth type="submit">Log in</Button>
-                }
-              </Box>
-            </Grid>
 
           </Grid>
 

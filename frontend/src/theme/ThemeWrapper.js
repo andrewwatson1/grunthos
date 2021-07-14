@@ -15,7 +15,7 @@ const baseTheme = {
       main: "#373632"
     },
     secondary: {
-      main: "#d0ba80"
+      main: "#d3ba82"
     }
   }
 };
@@ -27,7 +27,7 @@ export const ThemeWrapper = props => {
   const app = React.useContext(AppContext);
 
   // State
-  const [theme, setTheme] = React.useState({ ...baseTheme });
+  const [theme, setTheme] = React.useState(baseTheme);
 
   // Listen for updates to the user
   React.useEffect(() => {

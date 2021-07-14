@@ -13,26 +13,26 @@ import Button from "@material-ui/core/Button";
 // Custom styles
 const useStyles = makeStyles((theme) => ({
   dropHero: {
-    background: theme.palette.grey[400],
-    paddingTop: theme.spacing(2),
+    background: "#bababa",
+    paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(2)
   },
 
   heading: {
     background: theme.palette.primary.main,
+    color: "#bababa",
     paddingBottom: theme.spacing(2),
     paddingTop: theme.spacing(2),
     "& .MuiTypography-caption": {
-      color: theme.palette.grey[400],
       textTransform: "uppercase"
     }
   },
 
   title: {
+    color: theme.palette.secondary.main,
     fontStyle: "italic",
     fontSize: "225%",
     fontWeight: "700",
-    color: theme.palette.secondary.main,
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
     [theme.breakpoints.up("sm")]: {
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   artist: {
-    color: theme.palette.grey[400],
+    color: "#dadada",
     fontSize: "90%"
   },
 
@@ -52,20 +52,17 @@ const useStyles = makeStyles((theme) => ({
 
   poem: {
     background: theme.palette.background.paper,
+    boxShadow: theme.shadows[24],
     padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     "& .MuiTypography-root": {
-      fontFamily: "'Concert One', cursive",
-      fontSize: "125%",
-      fontStyle: "italic",
       whiteSpace: "pre-line"
     }
   },
 
   caution: {
     fontSize: "80%",
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-    color: theme.palette.getContrastText(theme.palette.grey[400]),
+    marginBottom: theme.spacing(1),
     "& strong": {
       color: theme.palette.error.dark
     }
@@ -76,16 +73,18 @@ const useStyles = makeStyles((theme) => ({
   },
 
   spec: {
-    background: theme.palette.grey[200],
+    background: theme.palette.grey[700],
     padding: theme.spacing(1),
-    color: theme.palette.getContrastText(theme.palette.grey[200]),
+    color: theme.palette.getContrastText(theme.palette.grey[700]),
     "& strong": {
       fontWeight: "500"
     },
     "& span": {
       fontWeight: "300",
       display: "block",
-      fontSize: "75%",
+      marginBottom: theme.spacing(.5),
+      fontSize: "70%",
+      lineHeight: "1",
       textTransform: "uppercase"
     }
   },
@@ -166,11 +165,11 @@ export const DropHero = ({ drop }) => {
       <Box className={classes.body}>
         <Container>
 
+          {data.content && <Typography className={classes.caution}><strong>Use caution while reading.</strong> If you feel discomfort, well that&apos;s bound to happen.</Typography>}
+
           {data.content
             ? <Box className={classes.poem}><Typography>{data.content}</Typography></Box>
             : <Skeleton animation="wave" variant="rect" width="100%" height={125} />}
-
-          {data.content && <Typography className={classes.caution}><strong>^ Use caution while reading.</strong> If you feel discomfort, well that&apos;s bound to happen.</Typography>}
 
           <Box className={classes.specs}>
             <Grid container spacing={2}>
@@ -212,7 +211,9 @@ export const DropHero = ({ drop }) => {
                   </Grid>
 
                   <Grid item xs={12} md={3}>
-                    <Button variant="contained" color="secondary">Make an offer</Button>
+                    <Box>
+                      <Button variant="contained" color="secondary">Make an offer</Button>
+                    </Box>
                   </Grid>
 
                 </Grid>

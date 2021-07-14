@@ -47,7 +47,7 @@ export const Account = () => {
 
         <Box>
 
-          <AppBar position="static">
+          <AppBar position="static" color="primary">
             <Tabs value={activeTab} onChange={(event, newValue) => setActiveTab(newValue)} aria-label="Account Options">
               <Tab label="Profile" id="account-tabs-0" />
             </Tabs>

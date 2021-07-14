@@ -1,6 +1,5 @@
 // System
 import React from "react";
-import { useHistory } from "react-router";
 
 // Mui
 import { makeStyles } from "@material-ui/core/styles";
@@ -12,6 +11,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+
 import LinearProgress from "@material-ui/core/LinearProgress";
 
 // Mothership
@@ -20,24 +20,22 @@ import AppContext from "./../../context/AppContext";
 // Custom layout
 const useStyles = makeStyles((theme) => ({
   title: {
+    color: theme.palette.primary.dark,
     fontSize: "150%",
     fontWeight: "600"
   },
-  formHeading: {
-    borderTop: `1px solid ${theme.palette.grey[300]}`,
-    marginTop: theme.spacing(1),
-    paddingTop: theme.spacing(1),
-    "& .MuiTypography-root": {
-      fontSize: "110%",
+  iAmVogon: {
+    marginTop: theme.spacing(2),
+    border: `5px solid ${theme.palette.primary.light}`,
+    padding: theme.spacing(2),
+    "& .MuiTypography-overline": {
       fontWeight: "700",
-      color: theme.palette.primary.light
+      color: theme.palette.primary.light,
+      fontSize: "125%",
+      lineHeight: "1.5"
     }
-  },
-  aBitAboutYou: {
-    paddingTop: theme.spacing(2)
 
   }
-
 }));
 
 // Widget
@@ -45,9 +43,6 @@ export const Register = ({ setPanel }) => {
 
   // Classes
   const classes = useStyles();
-
-  // History
-  const history = useHistory();
 
   // Wire up
   const app = React.useContext(AppContext);
@@ -198,15 +193,15 @@ export const Register = ({ setPanel }) => {
     <>
       <Box>
 
-        <Box mb={1}>
+        <Box>
           <Typography component="h2" className={classes.title}>Create Account</Typography>
         </Box>
 
-        <Box mb={3}>
+        <Box mb={5}>
           <Typography component="p" className={classes.subTitle}>Sign up to continue</Typography>
         </Box>
 
-        <Box component="form" onSubmit={formSubmit} ref={form} mb={3}>
+        <Box component="form" onSubmit={formSubmit} ref={form} mb={5}>
 
           <Grid container spacing={2}>
 
@@ -227,15 +222,24 @@ export const Register = ({ setPanel }) => {
             </Grid>
 
             <Grid item xs={12}>
-              <Box className={classes.aBitAboutYou}>
+              <Box className={classes.iAmVogon}>
 
-                <Typography variant="subtitle2">A bit about you</Typography>
+                <Typography variant="overline" component="div">We&apos;re looking for talent</Typography>
 
-                <FormControlLabel
-                  value="iAmVogon"
-                  control={<Checkbox color="default" />}
-                  label="I am a Vogon Poet"
-                  labelPlacement="end" />
+                <Typography variant="body2" gutterBottom>Are you an upcoming Vogon Poet, or a normal Poet that identifies as Vogon, or just someone who is crafy with words and and has a propensity for shouting, why not showcase your talent on Vogon Odist!</Typography>
+
+                <Box>
+                  <FormControlLabel
+                    value="isVogon"
+                    control={<Checkbox color="primary" />}
+                    label={<Typography variant="subtitle2">I wish to register as the Poet: </Typography>}
+                    labelPlacement="end"
+                  />
+                </Box>
+
+                <Box>
+                  <TextField name="vogonName" label="Vogon name" variant="outlined" fullWidth />
+                </Box>
 
               </Box>
             </Grid>
@@ -255,7 +259,7 @@ export const Register = ({ setPanel }) => {
 
                     ? <Box p={2}><LinearProgress /></Box>
 
-                    : <Button size="large" variant="contained" fullWidth type="submit" color="secondary">Sign Up</Button>
+                    : <Button size="large" variant="contained" fullWidth type="submit" color="primary">Sign Up</Button>
                 }
               </Box>
             </Grid>

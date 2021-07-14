@@ -25,6 +25,8 @@ import LoginDialog from "./../../widgets/loginDialog";
 // Custom UI
 const useStyles = makeStyles((theme) => ({
   title: {
+    color: theme.palette.grey[800],
+    cursor: "pointer",
     fontSize: "90%",
     fontWeight: "700",
     flexGrow: 1,
@@ -91,7 +93,7 @@ export const AppHeader = () => {
 
           <Grid item xs={8}>
 
-            <Typography component="h1" className={classes.title}>
+            <Typography component="h1" className={classes.title} onClick={() => history.push("/")}>
               Vogon Odist <span>Home to today&apos;s hottest Vogon poets!</span>
             </Typography>
 
