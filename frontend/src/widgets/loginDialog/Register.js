@@ -218,7 +218,7 @@ export const Register = ({ setPanel }) => {
             </Grid>
 
             <Grid item xs={6}>
-              <TextField name="passwordConfirm" label="Confirm Password" variant="outlined" fullWidth type="password" required />
+              <TextField name="passwordConfirm" label="Confirm" variant="outlined" fullWidth type="password" required />
             </Grid>
 
             <Grid item xs={12}>

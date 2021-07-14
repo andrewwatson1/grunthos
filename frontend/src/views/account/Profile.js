@@ -46,13 +46,13 @@ export const Profile = () => {
 
         <Box p={2}>
 
-          <Grid container>
+          <Grid container spacing={2}>
 
             <Grid item xs={5}>
 
               <Typography variant="subtitle2">Picture</Typography>
 
-              <Typography variant="body2" gutterBottom>Vogons are required to have an profile picture, displayed along side of your masterpieces.</Typography>
+              <Typography variant="body2" gutterBottom>Vogons are required to have a profile picture, displayed along side of your masterpieces.</Typography>
 
               <Box mt={1}>
                 <input
@@ -67,6 +67,12 @@ export const Profile = () => {
                     Upload
                   </Button>
                 </label>
+              </Box>
+
+              <Box mt={4}>
+                <Button variant="contained" color="secondary" disableElevation>
+                  Save
+                </Button>
               </Box>
 
             </Grid>
@@ -84,12 +90,6 @@ export const Profile = () => {
           </Grid>
 
 
-        </Box>
-
-        <Box mt={2} p={2}>
-          <Button variant="contained" color="secondary" disableElevation>
-            Save
-          </Button>
         </Box>
 
       </form>
