@@ -10,6 +10,11 @@ import AppContext from "../context/AppContext";
 
 // Base
 const baseTheme = {
+  typography: {
+    button: {
+      textTransform: "none"
+    }
+  },
   palette: {
     primary: {
       main: "#373632"

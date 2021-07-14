@@ -13,7 +13,7 @@ import Tab from "@material-ui/core/Tab";
 // Local styles
 const useStyles = makeStyles((theme) => ({
   title: {
-    fontSize: "150%",
+    fontSize: "140%",
     fontWeight: "600"
   }
 }));
@@ -23,6 +23,8 @@ import AppHeader from "./../../widgets/appHeader";
 
 // Modules
 import Profile from "./Profile";
+import Settings from "./Settings";
+import MyPoems from "./MyPoems";
 
 // View
 export const Account = () => {
@@ -49,12 +51,22 @@ export const Account = () => {
 
           <AppBar position="static" color="primary">
             <Tabs value={activeTab} onChange={(event, newValue) => setActiveTab(newValue)} aria-label="Account Options">
-              <Tab label="Profile" id="account-tabs-0" />
+              <Tab label="Settings" id="account-tabs-0" />
+              <Tab label="Vogon Profile" id="account-tabs-1" />
+              <Tab label="My Poems" id="account-tabs-2" />
             </Tabs>
           </AppBar>
 
           <Box role="tabpanel" hidden={activeTab !== 0} id={"account-tabpanel-0"} aria-labelledby={"account-tabs-0"}>
-            {activeTab === 0 && <Profile />}
+            {activeTab === 0 && <Settings />}
+          </Box>
+
+          <Box role="tabpanel" hidden={activeTab !== 1} id={"account-tabpanel-1"} aria-labelledby={"account-tabs-1"}>
+            {activeTab === 1 && <Profile />}
+          </Box>
+
+          <Box role="tabpanel" hidden={activeTab !== 2} id={"account-tabpanel-2"} aria-labelledby={"account-tabs-2"}>
+            {activeTab === 2 && <MyPoems />}
           </Box>
 
         </Box>

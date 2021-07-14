@@ -4,19 +4,24 @@ import React from "react";
 // Mui
 import { makeStyles } from "@material-ui/styles";
 import Box from "@material-ui/core/Box";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
+import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 
 // Mothership
 import AppContext from "./../../context/AppContext";
 
 // Local styles
 const useStyles = makeStyles((theme) => ({
-  title: {
-    fontSize: "135%",
-    fontWeight: "600"
+  fileUpload: {
+    display: "none"
+  },
+  imgWrapper: {
+    "& img": {
+      maxWidth: "100%",
+      height: "auto"
+    }
   }
 }));
 
@@ -29,25 +34,59 @@ export const Profile = () => {
   // Classes
   const classes = useStyles();
 
-  // Local
-  const inputChangeHandler = (event) => {
-
-    console.log(event.target.value);
-
-  };
-
   // Render
   return (
     <Box mt={4}>
 
-      <form className={classes.root} noValidate autoComplete="off">
+      <form noValidate autoComplete="off">
 
-        <FormControl variant="outlined">
-          <InputLabel htmlFor="user-email">Email</InputLabel>
-          <OutlinedInput id="user-email" value={app.user.email} onChange={inputChangeHandler} label="Email" />
-        </FormControl>
+        <Box p={2}>
+          <TextField name="vogonname" label="Vogon name" variant="outlined" fullWidth required />
+        </Box>
 
-        <Box mt={4}>
+        <Box p={2}>
+
+          <Grid container>
+
+            <Grid item xs={5}>
+
+              <Typography variant="subtitle2">Picture</Typography>
+
+              <Typography variant="body2" gutterBottom>Vogons are required to have an profile picture, displayed along side of your masterpieces.</Typography>
+
+              <Box mt={1}>
+                <input
+                  accept="image/*"
+                  className={classes.fileUpload}
+                  id="contained-button-file"
+                  multiple
+                  type="file"
+                />
+                <label htmlFor="contained-button-file">
+                  <Button variant="contained" color="primary" component="span">
+                    Upload
+                  </Button>
+                </label>
+              </Box>
+
+            </Grid>
+
+            <Grid item xs={7}>
+
+              <Typography variant="overline">Current Image</Typography>
+
+              <Box className={classes.imgWrapper}>
+                <img src="/images/poets/default.png" alt="No image uploaded" width="460px" height="700px" />
+              </Box>
+
+            </Grid>
+
+          </Grid>
+
+
+        </Box>
+
+        <Box mt={2} p={2}>
           <Button variant="contained" color="secondary" disableElevation>
             Save
           </Button>

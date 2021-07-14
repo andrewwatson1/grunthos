@@ -226,7 +226,7 @@ export const Register = ({ setPanel }) => {
 
                 <Typography variant="overline" component="div">We&apos;re looking for talent</Typography>
 
-                <Typography variant="body2" gutterBottom>Are you an upcoming Vogon Poet, or a normal Poet that identifies as Vogon, or just someone who is crafy with words and and has a propensity for shouting, why not showcase your talent on Vogon Odist!</Typography>
+                <Typography variant="body2" gutterBottom>Are you an upcoming Vogon Poet, or a normal Poet that identifies as Vogon, or just someone who is crafy with words and has a propensity for shouting? Why not showcase your talent on Vogon Odist!</Typography>
 
                 <Box>
                   <FormControlLabel
