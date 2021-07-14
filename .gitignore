@@ -105,6 +105,9 @@ dist
 
 # Common
 build/
+solana_key.json
+builders.ini
 
 # Environment variables
 dev.env
+prod.env

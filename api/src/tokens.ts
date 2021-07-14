@@ -10,11 +10,7 @@ import { Token, TOKEN_PROGRAM_ID } from "@solana/spl-token"
 import { clusterApiUrl, Connection, Keypair, PublicKey } from "@solana/web3.js"
 import util from "util"
 
-import {
-    mainKeypairPath,
-    solanaCluster,
-    SolanaConfigPath,
-} from "./settings"
+import { mainKeypairPath, solanaCluster, SolanaConfigPath } from "./settings"
 
 const utilexec = util.promisify(exec)
 

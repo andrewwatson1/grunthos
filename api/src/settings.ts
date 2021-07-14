@@ -26,6 +26,14 @@ if (!BUGOUT_POEMS_JOURNAL_ID) {
     throw new Error("BUGOUT_POEMS_JOURNAL_ID environment variable must be set")
 }
 
+export const BUGOUT_RESOURCE_APPLICATION_ID =
+    process.env.BUGOUT_RESOURCE_APPLICATION_ID
+if (!BUGOUT_RESOURCE_APPLICATION_ID) {
+    throw new Error(
+        "BUGOUT_RESOURCE_APPLICATION_ID environment variable must be set"
+    )
+}
+
 // Solana
 export const SolanaConfigPath: string | undefined =
     process.env.SOLANA_CONFIG_PATH
