@@ -4,7 +4,8 @@ import React from "react";
 // Mui
 import { makeStyles } from "@material-ui/styles";
 import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import CreateIcon from "@material-ui/icons/Create";
 
 // Mothership
 import AppContext from "./../../context/AppContext";
@@ -25,10 +26,13 @@ export const MyPoems = () => {
 
   // Render
   return (
-    <Box mt={4}>
+    <Box mt={2}>
 
-      <Box p={2}>
-        <Typography>Need poems here....</Typography>
+      <Box textAlign="right" mb={3}>
+        <Button
+          startIcon={<CreateIcon />}
+          variant="contained"
+          color="secondary">Compose</Button>
       </Box>
 
     </Box>

@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
     paddingTop: theme.spacing(2),
     "& .MuiTypography-caption": {
-      textTransform: "uppercase"
+      textTransform: "uppercase",
+      fontWeight: "500"
     }
   },
 
@@ -36,7 +37,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
     [theme.breakpoints.up("sm")]: {
-      fontSize: "300%"
+      fontSize: "300%",
+      marginTop: "0",
+      textShadow: "0px 1px 1px black"
     }
   },
 
@@ -54,15 +57,21 @@ const useStyles = makeStyles((theme) => ({
     background: theme.palette.background.paper,
     boxShadow: theme.shadows[24],
     padding: theme.spacing(2),
+    paddingTop: theme.spacing(1),
     marginBottom: theme.spacing(2),
-    "& .MuiTypography-root": {
-      whiteSpace: "pre-line"
+    "& .MuiTypography-body1": {
+      textShadow: "0 0 4px darkgrey",
+      whiteSpace: "pre-line",
+      fontSize: "150%",
+      fontFamily: "'Yomogi', cursive"
     }
   },
 
   caution: {
+    borderBottom: `1px solid ${theme.palette.grey[300]}`,
     fontSize: "80%",
     marginBottom: theme.spacing(1),
+    paddingBottom: theme.spacing(.5),
     "& strong": {
       color: theme.palette.error.dark
     }
@@ -96,9 +105,22 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.contrastText,
     "& .auction-item-title": {
       fontSize: "75%",
-      textTransform: "uppercase"
+      textTransform: "uppercase",
+      paddingBottom: theme.spacing(1),
+      opacity: ".5"
     },
-    "& .auction-item-value": {}
+    "& .clock-item": {
+      background: theme.palette.primary.light,
+      border: "1px solid",
+      padding: "2px 6px",
+      marginRight: theme.spacing(1),
+      fontWeight: "600",
+      "& span": {
+        fontSize: "55%",
+        textTransform: "uppercase",
+        fontWeight: "normal"
+      }
+    }
   }
 
 }));
@@ -153,7 +175,7 @@ export const DropHero = ({ drop }) => {
             ? <>
               <Typography variant="caption">Available Now:</Typography>
               <Typography variant="h2" className={classes.title}>{data.title}</Typography>
-              <Typography className={classes.artist}><b>{data.artist}</b></Typography>
+              <Typography className={classes.artist}>Poet: <b>{data.artist}</b></Typography>
             </>
 
             : <Skeleton animation="wave" variant="rect" width="100%" height={50} />
@@ -165,61 +187,40 @@ export const DropHero = ({ drop }) => {
       <Box className={classes.body}>
         <Container>
 
-          {data.content && <Typography className={classes.caution}><strong>Use caution while reading.</strong> If you feel discomfort, well that&apos;s bound to happen.</Typography>}
-
           {data.content
-            ? <Box className={classes.poem}><Typography>{data.content}</Typography></Box>
+            ? <Box className={classes.poem}>
+              <Typography variant="caption" component="p" className={classes.caution}><strong>Use caution while reading.</strong> If you feel discomfort? Well, that&apos;s bound to happen. The best poems hurt.</Typography>
+              <Typography variant="body1">{data.content}</Typography>
+            </Box>
             : <Skeleton animation="wave" variant="rect" width="100%" height={125} />}
 
-          <Box className={classes.specs}>
-            <Grid container spacing={2}>
+          {data.auction
+            ? <Box className={classes.auction}>
+              <Grid container spacing={2} alignItems="center">
 
-              <Grid item>
-
-                {data.artist
-                  ? <Box className={classes.spec}><Typography><span>Artist</span> <strong>{data.artist}</strong></Typography></Box>
-
-                  : <Skeleton animation="wave" variant="rect" width={100} height={50} />}
-
-              </Grid>
-
-              <Grid item>
-
-                {data.artist
-                  ? <Box className={classes.spec}><Typography><span>Format</span> <strong>NFT</strong></Typography></Box>
-
-                  : <Skeleton animation="wave" variant="rect" width={50} height={50} />}
-
-              </Grid>
-
-            </Grid>
-          </Box>
-
-          {
-            data.auction
-              ? <Box className={classes.auction}>
-                <Grid container spacing={2} alignItems="center">
-
-                  <Grid item xs={12} md={5}>
-                    <Typography className="auction-item-title">Auction Status</Typography>
-                    <Typography className="auction-item-value">2 Days, 7 hours, 34 mins</Typography>
-                  </Grid>
-
-                  <Grid item xs={12} md={4}>
-                    <Typography className="auction-item-title">Current Bid</Typography>
-                    <Typography className="auction-item-value">32 SOL</Typography>
-                  </Grid>
-
-                  <Grid item xs={12} md={3}>
-                    <Box>
-                      <Button variant="contained" color="secondary">Make an offer</Button>
-                    </Box>
-                  </Grid>
-
+                <Grid item xs={12} sm={5}>
+                  <Typography className="auction-item-title">Auction Status</Typography>
+                  <Typography className="auction-item-value">
+                    <span className="clock-item">2 <span>Days</span></span>
+                    <span className="clock-item">7 <span>hours</span></span>
+                    <span className="clock-item">34 <span>mins</span></span>
+                  </Typography>
                 </Grid>
-              </Box>
-              : <Skeleton animation="wave" variant="rect" width="100%" height={50} />
-          }
+
+                <Grid item xs={12} sm={3}>
+                  <Typography className="auction-item-title">Current Bid</Typography>
+                  <Typography className="auction-item-value">32 SOL</Typography>
+                </Grid>
+
+                <Grid item xs={12} sm={4}>
+                  <Box textAlign="right">
+                    <Button variant="contained" color="secondary">Make an offer</Button>
+                  </Box>
+                </Grid>
+
+              </Grid>
+            </Box>
+            : <Skeleton animation="wave" variant="rect" width="100%" height={50} />}
 
         </Container>
       </Box>

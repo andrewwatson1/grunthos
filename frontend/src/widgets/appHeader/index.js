@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
       }
     },
     [theme.breakpoints.up("lg")]: {
-      fontSize: "225%",
+      fontSize: "200%",
       marginBottom: theme.spacing(2),
       marginTop: theme.spacing(2),
       "& span": {
