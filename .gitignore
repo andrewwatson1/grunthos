@@ -102,3 +102,12 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Common
+build/
+solana_key.json
+builders.ini
+
+# Environment variables
+dev.env
+prod.env

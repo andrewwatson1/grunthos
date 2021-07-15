@@ -1,0 +1,127 @@
+---
+- name: Install Grunthos application
+  hosts: builders
+  remote_user: ubuntu
+  vars:
+    grunthos_source_path: /home/ubuntu/grunthos
+    grunthos_github_repo: git@github.com:kompotkot/grunthos.git
+    github_deployments_public_key: "~/.ssh/github_ec2_deployments.pub"
+    github_deployments_private_key: "~/.ssh/github_ec2_deployments"
+    bugout_reporter_token: ""
+    bugout_poems_journal_id: ""
+    bugout_resource_application_id: ""
+    grunthos_server_id: ""
+    grunthos_cors_allowed_origins: ""
+    solana_config_path: ""
+    solana_cluster: ""
+  tasks:
+    - name: Add nodejs
+      get_url:
+        url: https://deb.nodesource.com/setup_14.x
+        dest: /tmp/node_prep.bash
+    - name: Mark as executable
+      file:
+        path: /tmp/node_prep.bash
+        mode: a+x
+    - name: Prepare node for installation
+      become: true
+      command:
+        cmd: "bash /tmp/node_prep.bash"
+    - name: Run apt-get update and ensure desired apt packages
+      become: yes
+      apt:
+        update_cache: yes
+        name:
+          - build-essential
+          - nodejs
+        state: present
+    # Install solana
+    - name: Add solana installation script
+      get_url:
+        url: https://release.solana.com/v1.7.3/install
+        dest: /tmp/solana_install.bash
+    - name: Mark as executable
+      file:
+        path: /tmp/solana_install.bash
+        mode: a+x
+    - name: Install solana tools
+      command:
+        cmd: "bash /tmp/solana_install.bash"
+    - name: Copy solana key
+      copy:
+        src: solana_key.json
+        dest: /home/ubuntu/.config/solana/id.json
+        force: yes
+    # Grunthos application
+    - name: Clone application from GitHub
+      git:
+        repo: "{{ grunthos_github_repo }}"
+        dest: "{{ grunthos_source_path }}"
+        accept_hostkey: yes
+        force: yes
+    - name: Install grunthos dependencies
+      command:
+        chdir: "{{ grunthos_source_path }}/api"
+        cmd: "npm install"
+    - name: Build API
+      command:
+        chdir: "{{ grunthos_source_path }}/api"
+        cmd: "npm run build"
+    # Environments
+    - name: Create secrets directory
+      file:
+        path: /home/ubuntu/secrets
+        state: directory
+    - name: Copy environment file
+      copy:
+        src: ../api/sample.env
+        dest: /home/ubuntu/secrets/app.env
+        mode: 0640
+    - name: Replace BUGOUT_REPORTER_TOKEN in app.env
+      lineinfile:
+        path: /home/ubuntu/secrets/app.env
+        regexp: 'export BUGOUT_REPORTER_TOKEN='
+        line: 'BUGOUT_REPORTER_TOKEN="{{ bugout_reporter_token }}"'
+    - name: Replace BUGOUT_POEMS_JOURNAL_ID in app.env
+      lineinfile:
+        path: /home/ubuntu/secrets/app.env
+        regexp: 'export BUGOUT_POEMS_JOURNAL_ID='
+        line: 'BUGOUT_POEMS_JOURNAL_ID="{{ bugout_poems_journal_id }}"'
+    - name: Replace BUGOUT_RESOURCE_APPLICATION_ID in app.env
+      lineinfile:
+        path: /home/ubuntu/secrets/app.env
+        regexp: 'export BUGOUT_RESOURCE_APPLICATION_ID='
+        line: 'BUGOUT_RESOURCE_APPLICATION_ID="{{ bugout_resource_application_id }}"'
+    - name: Replace GRUNTHOS_SERVER_ID in app.env
+      lineinfile:
+        path: /home/ubuntu/secrets/app.env
+        regexp: 'export GRUNTHOS_SERVER_ID='
+        line: 'GRUNTHOS_SERVER_ID="{{ grunthos_server_id }}"'
+    - name: Replace GRUNTHOS_CORS_ALLOWED_ORIGINS in app.env
+      lineinfile:
+        path: /home/ubuntu/secrets/app.env
+        regexp: 'export GRUNTHOS_CORS_ALLOWED_ORIGINS='
+        line: 'GRUNTHOS_CORS_ALLOWED_ORIGINS="{{ grunthos_cors_allowed_origins }}"'
+    - name: Replace SOLANA_CONFIG_PATH in app.env
+      lineinfile:
+        path: /home/ubuntu/secrets/app.env
+        regexp: 'export SOLANA_CONFIG_PATH='
+        line: 'SOLANA_CONFIG_PATH="{{ solana_config_path }}"'
+    - name: Replace SOLANA_CLUSTER in app.env
+      lineinfile:
+        path: /home/ubuntu/secrets/app.env
+        regexp: 'export SOLANA_CLUSTER='
+        line: 'SOLANA_CLUSTER="{{ solana_cluster }}"'
+    # Service
+    - name: Copy grunthos.service file
+      become: yes
+      copy:
+        src: grunthos.service
+        dest: /etc/systemd/system/grunthos.service
+        mode: 644
+    # - name: Enable service, also issue daemon-reload to pick up config changes
+    #   become: yes
+    #   systemd:
+    #     enabled: yes
+    #     daemon_reload: yes
+    #     name: grunthos.service
